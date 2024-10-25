@@ -1,9 +1,19 @@
+import {PrismaClient} from '@prisma/client'
+import { redirect } from 'next/navigation';
 
+export default async function Page({params}: {params: {slug: string}}) {
+  const prisma = new PrismaClient()
+  const video = await prisma.video.findUnique({
+    where: {
+      id: Number(params.slug),
+    }
+  })
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      Example stuff
+  return(
+    <div>
+      <span>{video?.name}</span>-{video?.length}-{video?.votes}
     </div>
-  );
+  )
+  
+  
 }
