@@ -1,19 +1,19 @@
 import {PrismaClient} from '@prisma/client'
-import { redirect } from 'next/navigation';
 
-export default async function Page({params}: {params: {slug: string}}) {
+
+export default async function Page({videoId}: {videoId: number}){
   const prisma = new PrismaClient()
-  const video = await prisma.video.findUnique({
-    where: {
-      id: Number(params.slug),
-    }
-  })
+  let videos= await prisma.video.findMany()
+  console.log(videos)
+
+  const videoList = videos.map((video) =>
+  <li>{video.name}</li>)
 
   return(
     <div>
-      <span>{video?.name}</span>-{video?.length}-{video?.votes}
+      <h2>Videos</h2>
+      <ul>{videoList}</ul>
     </div>
   )
-  
-  
+
 }
