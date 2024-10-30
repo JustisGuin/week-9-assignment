@@ -13,4 +13,6 @@ model Video {
   url       String
   votes     Int
   length    Int
+  image     String
 }
+

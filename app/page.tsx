@@ -1,19 +1,25 @@
 import {PrismaClient} from '@prisma/client'
+import Image from 'next/image';
 
 
-export default async function Page({videoId}: {videoId: number}){
+export default async function Page(){
   const prisma = new PrismaClient()
-  let videos= await prisma.video.findMany()
+  const videos= await prisma.video.findMany()
   console.log(videos)
 
   const videoList = videos.map((video) =>
-  <li>{video.name}</li>)
+    <li key={video.id}>
+    </li>
+    )
 
   return(
     <div>
-      <h2>Videos</h2>
-      <ul>{videoList}</ul>
+      <div>
+      <h1>Videos</h1>
+        <ul>{videoList}</ul>
+        </div>
     </div>
   )
 
 }
+ {/* <Image src="/MeandJessie.jpg" alt="Me and jessie" width = {200} height={200} priority={true}/> */}
